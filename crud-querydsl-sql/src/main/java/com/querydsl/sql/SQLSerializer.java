@@ -227,7 +227,7 @@ public class SQLSerializer extends SerializerBase<SQLSerializer> {
                 super.visitOperation(constant.getClass(), SQLOps.CAST, Arrays.<Expression<?>>asList(Q, type));
                 constants.add(constant);
             } else {
-                if (update && constant instanceof Collection collection && this.isSimpleValue(collection)) {
+                if (update && constant instanceof Collection collection && !collection.isEmpty() && this.isSimpleValue(collection)) {
                     append("(");
                     append(IntStream.range(0, collection.size()).mapToObj(operand -> "?").collect(Collectors.joining(",")));
                     append(")");
